@@ -537,6 +537,132 @@
 
 // export default Login;
 
+//localhost
+// import React, { useState } from "react";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import './Login.css';
+
+// const Login = () => {
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [role, setRole] = useState("patient"); // "patient" or "doctor"
+//   const [errorMessage, setErrorMessage] = useState("");
+//   const navigate = useNavigate();
+
+//   const validateEmail = (email) => {
+//     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+//     return regex.test(email);
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!validateEmail(email)) {
+//       setErrorMessage("Please enter a valid email address.");
+//       return;
+//     }
+
+//     const loginData = { email, password };
+//     const endpoint =
+//       role === "doctor"
+//         ? "http://localhost:5000/api/doctors/login"
+//         : "http://localhost:5000/api/patients/login";
+
+//     try {
+//       const response = await axios.post(endpoint, loginData);
+
+//       if (response.status === 200) {
+//         const token = response.data.token;
+//         localStorage.setItem("token", token);
+
+//         if (role === "doctor") {
+//           localStorage.setItem("doctorId", response.data.doctor._id);
+//           navigate("/doctor-dashboard");
+//         } else {
+//           localStorage.setItem("userId", response.data.patient._id);
+//           navigate("/dashboard");
+//         }
+//       }
+//     } catch (error) {
+//       console.error("Login error:", error);
+//       const message =
+//         error.response?.data?.message ||
+//         error.message ||
+//         "Invalid credentials. Please try again.";
+//       setErrorMessage(message);
+//     }
+//   };
+
+//   return (
+//     <div className="auth-container">
+//       {/* Header with logo and home button */}
+//       <div className="login-header">
+//         <div className="logo" onClick={() => navigate('/')}>
+//           <img src="/logomedicare.jpg" alt="Logo" />
+//         </div>
+//         <button className="home-btn" onClick={() => navigate('/')}>
+//           Home
+//         </button>
+//       </div>
+
+//       <div className="login-form">
+//         <h2>Login</h2>
+
+//         <div className="role-buttons">
+//           <button
+//             type="button"
+//             className={`patient-btn ${role === "patient" ? "active" : ""}`}
+//             onClick={() => setRole("patient")}
+//           >
+//             Patient
+//           </button>
+//           <button
+//             type="button"
+//             className={`doctor-btn ${role === "doctor" ? "active" : ""}`}
+//             onClick={() => setRole("doctor")}
+//           >
+//             Doctor
+//           </button>
+//         </div>
+
+//         <form onSubmit={handleSubmit}>
+//           <div>
+//             <label>Email</label>
+//             <input
+//               type="email"
+//               placeholder="Enter your email"
+//               value={email}
+//               onChange={(e) => setEmail(e.target.value)}
+//               required
+//             />
+//           </div>
+//           <div>
+//             <label>Password</label>
+//             <input
+//               type="password"
+//               placeholder="Enter your password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//               required
+//             />
+//           </div>
+//           <button type="submit" className="submit-btn">Login</button>
+//         </form>
+
+//         {errorMessage && (
+//           <p className="error-message" style={{ color: "red" }}>
+//             {errorMessage}
+//           </p>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Login;
+
+
 
 import React, { useState } from "react";
 import axios from "axios";
@@ -564,10 +690,12 @@ const Login = () => {
     }
 
     const loginData = { email, password };
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL; // Use env variable
+
     const endpoint =
       role === "doctor"
-        ? "http://localhost:5000/api/doctors/login"
-        : "http://localhost:5000/api/patients/login";
+        ? `${apiBaseUrl}/api/doctors/login`
+        : `${apiBaseUrl}/api/patients/login`;
 
     try {
       const response = await axios.post(endpoint, loginData);
@@ -596,7 +724,6 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-      {/* Header with logo and home button */}
       <div className="login-header">
         <div className="logo" onClick={() => navigate('/')}>
           <img src="/logomedicare.jpg" alt="Logo" />
