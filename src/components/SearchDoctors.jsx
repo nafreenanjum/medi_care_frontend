@@ -691,8 +691,136 @@
 
 
 
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom'; // ✅ import this
+// import axios from 'axios';
+// import './searchDoctor.css';
+
+// const SearchDoctor = () => {
+//   const [searchParams, setSearchParams] = useState({
+//     name: '',
+//     location: '',
+//     time: ''
+//   });
+//   const [results, setResults] = useState([]);
+//   const [error, setError] = useState('');
+//   const navigate = useNavigate(); // ✅
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setSearchParams((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSearch = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const token = localStorage.getItem('token');
+
+//       // Only include parameters that are not empty
+//       const params = {};
+//       if (searchParams.name) params.name = searchParams.name;
+//       if (searchParams.location) params.location = searchParams.location;
+//       if (searchParams.time) params.time = searchParams.time;
+
+//       const res = await axios.get('http://localhost:5000/api/doctors/search', {
+//         params,
+//         headers: { Authorization: `Bearer ${token}` }
+//       });
+
+//       setResults(res.data);
+//       setError('');
+//     } catch (err) {
+//       setResults([]);
+//       setError(err.response?.data?.message || 'Doctor search failed');
+//     }
+//   };
+
+//   const handleBookClick = (doctor) => {
+//     navigate(`/book-appointment/${doctor._id}`, { state: { doctor } }); // ✅ pass doctor data via route state
+//   };
+//   const handleLogout = () => {
+//     localStorage.removeItem('token');
+//     navigate('/login');
+//   };
+
+//   return (
+// <>
+//       <div className="login-header">
+//   {/* LEFT: Logo */}
+//   <div className="navbar-left" onClick={() => navigate('/dashboard')}>
+//     <img src="/logomedicare.jpg" alt="Logo" className="logo" />
+//   </div>
+
+//   {/* RIGHT: Home and Logout */}
+//   <div className="navbar-right">
+//     <button className="home-btn" onClick={() => navigate('/dashboard')}>Home</button>
+//     <button
+//       className="logout-btn"
+//       onClick={() => {
+//         localStorage.removeItem('token');
+//         window.location.href = '/login';
+//       }}
+//     >
+//       Logout
+//     </button>
+//   </div>
+// </div>
+//     <div className="search-doctor-container">
+//       <form onSubmit={handleSearch} className="search-form">
+//         <h2>Search Doctors</h2>
+//         <input
+//           type="text"
+//           name="name"
+//           placeholder="Doctor's Name"
+//           value={searchParams.name}
+//           onChange={handleChange}
+//         />
+//         <input
+//           type="text"
+//           name="location"
+//           placeholder="Location"
+//           value={searchParams.location}
+//           onChange={handleChange}
+//         />
+//         <input
+//           type="time"
+//           name="time"
+//           value={searchParams.time}
+//           onChange={handleChange}
+//         />
+//         <button type="submit">Search</button>
+//       </form>
+
+//       {error && <p className="message">{error}</p>}
+
+//       {results.length === 0 && !error ? (
+//         <p>No doctors found. Please try another search.</p>
+//       ) : (
+//         <div className="doctor-card-container">
+//           {results.map((doctor) => (
+//             <div key={doctor._id} className="doctor-card">
+//               <h3>{doctor.fullName}</h3>
+//               <p><strong>Location:</strong> {doctor.location}</p>
+//               <p><strong>Specialization:</strong> {doctor.specialty || 'Not available'}</p>
+//               <p><strong>Available at:</strong> {doctor.workingHours?.startTime} - {doctor.workingHours?.endTime}</p>
+//               <button onClick={() => handleBookClick(doctor)}>Book Appointment</button>
+//             </div>
+//           ))}
+//         </div>
+//       )} 
+//       <button onClick={() => window.history.back()} className="backbtn">
+//         Back to Dashboard
+//       </button>
+//     </div>
+//     </>
+//   );
+// };
+
+// export default SearchDoctor;
+
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ import this
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './searchDoctor.css';
 
@@ -704,7 +832,9 @@ const SearchDoctor = () => {
   });
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // ✅
+  const navigate = useNavigate();
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // ✅ Use VITE env variable
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -715,14 +845,12 @@ const SearchDoctor = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-
-      // Only include parameters that are not empty
       const params = {};
       if (searchParams.name) params.name = searchParams.name;
       if (searchParams.location) params.location = searchParams.location;
       if (searchParams.time) params.time = searchParams.time;
 
-      const res = await axios.get('http://localhost:5000/api/doctors/search', {
+      const res = await axios.get(`${API_BASE_URL}/api/doctors/search`, {
         params,
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -736,82 +864,76 @@ const SearchDoctor = () => {
   };
 
   const handleBookClick = (doctor) => {
-    navigate(`/book-appointment/${doctor._id}`, { state: { doctor } }); // ✅ pass doctor data via route state
-  };
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
+    navigate(`/book-appointment/${doctor._id}`, { state: { doctor } });
   };
 
   return (
-<>
+    <>
       <div className="login-header">
-  {/* LEFT: Logo */}
-  <div className="navbar-left" onClick={() => navigate('/dashboard')}>
-    <img src="/logomedicare.jpg" alt="Logo" className="logo" />
-  </div>
-
-  {/* RIGHT: Home and Logout */}
-  <div className="navbar-right">
-    <button className="home-btn" onClick={() => navigate('/dashboard')}>Home</button>
-    <button
-      className="logout-btn"
-      onClick={() => {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      }}
-    >
-      Logout
-    </button>
-  </div>
-</div>
-    <div className="search-doctor-container">
-      <form onSubmit={handleSearch} className="search-form">
-        <h2>Search Doctors</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="Doctor's Name"
-          value={searchParams.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="location"
-          placeholder="Location"
-          value={searchParams.location}
-          onChange={handleChange}
-        />
-        <input
-          type="time"
-          name="time"
-          value={searchParams.time}
-          onChange={handleChange}
-        />
-        <button type="submit">Search</button>
-      </form>
-
-      {error && <p className="message">{error}</p>}
-
-      {results.length === 0 && !error ? (
-        <p>No doctors found. Please try another search.</p>
-      ) : (
-        <div className="doctor-card-container">
-          {results.map((doctor) => (
-            <div key={doctor._id} className="doctor-card">
-              <h3>{doctor.fullName}</h3>
-              <p><strong>Location:</strong> {doctor.location}</p>
-              <p><strong>Specialization:</strong> {doctor.specialty || 'Not available'}</p>
-              <p><strong>Available at:</strong> {doctor.workingHours?.startTime} - {doctor.workingHours?.endTime}</p>
-              <button onClick={() => handleBookClick(doctor)}>Book Appointment</button>
-            </div>
-          ))}
+        <div className="navbar-left" onClick={() => navigate('/dashboard')}>
+          <img src="/logomedicare.jpg" alt="Logo" className="logo" />
         </div>
-      )} 
-      <button onClick={() => window.history.back()} className="backbtn">
-        Back to Dashboard
-      </button>
-    </div>
+        <div className="navbar-right">
+          <button className="home-btn" onClick={() => navigate('/dashboard')}>Home</button>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              localStorage.removeItem('token');
+              window.location.href = '/login';
+            }}
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+
+      <div className="search-doctor-container">
+        <form onSubmit={handleSearch} className="search-form">
+          <h2>Search Doctors</h2>
+          <input
+            type="text"
+            name="name"
+            placeholder="Doctor's Name"
+            value={searchParams.name}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={searchParams.location}
+            onChange={handleChange}
+          />
+          <input
+            type="time"
+            name="time"
+            value={searchParams.time}
+            onChange={handleChange}
+          />
+          <button type="submit">Search</button>
+        </form>
+
+        {error && <p className="message">{error}</p>}
+
+        {results.length === 0 && !error ? (
+          <p>No doctors found. Please try another search.</p>
+        ) : (
+          <div className="doctor-card-container">
+            {results.map((doctor) => (
+              <div key={doctor._id} className="doctor-card">
+                <h3>{doctor.fullName}</h3>
+                <p><strong>Location:</strong> {doctor.location}</p>
+                <p><strong>Specialization:</strong> {doctor.specialty || 'Not available'}</p>
+                <p><strong>Available at:</strong> {doctor.workingHours?.startTime} - {doctor.workingHours?.endTime}</p>
+                <button onClick={() => handleBookClick(doctor)}>Book Appointment</button>
+              </div>
+            ))}
+          </div>
+        )}
+        <button onClick={() => window.history.back()} className="backbtn">
+          Back to Dashboard
+        </button>
+      </div>
     </>
   );
 };
