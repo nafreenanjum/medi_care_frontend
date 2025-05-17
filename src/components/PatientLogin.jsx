@@ -1,23 +1,83 @@
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';  // Import useNavigate instead of useHistory
+
+// const PatientLogin = () => {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [errorMessage, setErrorMessage] = useState('');
+
+//   const navigate = useNavigate();  // Initialize navigate hook here
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const response = await axios.post('/api/patients/login', { email, password });
+//       localStorage.setItem('token', response.data.token);  // Store the token
+//       navigate('/dashboard');  // Use navigate instead of history.push
+//     } catch (err) {
+//       setErrorMessage('Invalid email or password');
+//     }
+//   };
+
+//   return (
+//     <div className="login-form">
+//       <h2>Patient Login</h2>
+//       <form onSubmit={handleSubmit}>
+//         <div>
+//           <label>Email</label>
+//           <input
+//             type="email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <div>
+//           <label>Password</label>
+//           <input
+//             type="password"
+//             value={password}
+//             onChange={(e) => setPassword(e.target.value)}
+//             required
+//           />
+//         </div>
+//         <button type="submit">Login</button>
+//         {errorMessage && <p className="error">{errorMessage}</p>}
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default PatientLogin;
+
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 const PatientLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const navigate = useNavigate();  // Initialize navigate hook here
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/patients/login', { email, password });
-      localStorage.setItem('token', response.data.token);  // Store the token
-      navigate('/dashboard');  // Use navigate instead of history.push
+      const response = await axios.post(`${API_BASE_URL}/api/patients/login`, { email, password });
+      localStorage.setItem('token', response.data.token);
+      navigate('/dashboard');
     } catch (err) {
-      setErrorMessage('Invalid email or password');
+      if (err.response?.data?.message) {
+        setErrorMessage(err.response.data.message);
+      } else {
+        setErrorMessage('Something went wrong. Please try again.');
+      }
     }
   };
 
@@ -51,4 +111,3 @@ const PatientLogin = () => {
 };
 
 export default PatientLogin;
-
