@@ -778,6 +778,153 @@
 
 
 // DoctorRegister.jsx
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import './DoctorRegister.css';
+// import { useNavigate } from 'react-router-dom';
+
+// const DoctorRegister = ({ setError, setSuccess }) => {
+//   const navigate = useNavigate();
+
+//   const [formData, setFormData] = useState({
+//     fullName: '',
+//     email: '',
+//     phone: '',
+//     password: '',
+//     specialty: '',
+//     experience: '',
+//     consultationFee: '',
+//     bio: '',
+//     location: '',
+//     startTime: '',
+//     endTime: '',
+//     availableDays: [],
+//   });
+
+//   const [profilePhoto, setProfilePhoto] = useState(null);
+//   const [degreeDocs, setDegreeDocs] = useState([]);
+//   const [showDays, setShowDays] = useState(false);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleAvailableDaysChange = (e) => {
+//     const { value } = e.target;
+//     setFormData((prev) => {
+//       const updatedDays = prev.availableDays.includes(value)
+//         ? prev.availableDays.filter(day => day !== value)
+//         : [...prev.availableDays, value];
+//       return { ...prev, availableDays: updatedDays };
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const workingHours = {
+//       startTime: formData.startTime,
+//       endTime: formData.endTime,
+//     };
+
+//     const form = new FormData();
+//     Object.entries(formData).forEach(([key, value]) => {
+//       if (key !== 'startTime' && key !== 'endTime' && key !== 'availableDays') {
+//         form.append(key, value);
+//       }
+//     });
+
+//     form.append('workingHours', JSON.stringify(workingHours));
+//     form.append('availableDays', JSON.stringify(formData.availableDays));
+
+//     if (profilePhoto) {
+//       form.append('photo', profilePhoto);
+//     }
+
+//     if (degreeDocs.length > 0) {
+//       for (let file of degreeDocs) {
+//         form.append('degreeDocs', file);
+//       }
+//     }
+
+//     try {
+//       const res = await axios.post('http://localhost:5000/api/doctors/register', form, {
+//         headers: { 'Content-Type': 'multipart/form-data' },
+//       });
+//       setSuccess(res.data.message);
+//       setError('');
+//       navigate('/login');
+//     } catch (err) {
+//       setError(err.response?.data?.message || 'Registration failed');
+//       setSuccess('');
+//     }
+//   };
+
+//   // We return JSX fields only (no <form>)
+//   return (
+//     <div className="doctor-register-form">
+//       {/* All your input fields go here... */}
+
+//       <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
+//       <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+//       <input type="tel" name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+//       <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+//       <input type="text" name="specialty" placeholder="Specialty" value={formData.specialty} onChange={handleChange} required />
+//       <input type="number" name="experience" placeholder="Experience (years)" value={formData.experience} onChange={handleChange} required />
+//       <input type="number" name="consultationFee" placeholder="Consultation Fee" value={formData.consultationFee} onChange={handleChange} required />
+//       <textarea name="bio" placeholder="Bio" value={formData.bio} onChange={handleChange} required></textarea>
+//       <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
+      
+//       <div className="time-icon">
+//         <label htmlFor="startTime">Start Time</label>
+//         <input type="time" name="startTime" id="startTime" value={formData.startTime} onChange={handleChange} required />
+//       </div>
+
+//       <div className="time-icon">
+//         <label htmlFor="endTime">End Time</label>
+//         <input type="time" name="endTime" id="endTime" value={formData.endTime} onChange={handleChange} required />
+//       </div>
+
+//       <div className="form-group">
+//         <label>Available Days</label>
+//         <div className="custom-multiselect">
+//           <div className="selected-values" onClick={() => setShowDays(!showDays)}>
+//             {formData.availableDays.length === 0 ? 'Select Available Days' : formData.availableDays.join(', ')}
+//           </div>
+//           {showDays && (
+//             <div className="options-list">
+//               {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+//                 <div key={day} className="option-item">
+//                   <input type="checkbox" value={day} checked={formData.availableDays.includes(day)} onChange={handleAvailableDaysChange} />
+//                   <label>{day}</label>
+//                 </div>
+//               ))}
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       <div className="file-upload">
+//         <label>Upload Profile Photo:</label>
+//         <input type="file" name="photo" onChange={(e) => setProfilePhoto(e.target.files[0])} required />
+//       </div>
+
+//       <div className="file-upload">
+//         <label>Upload Degree Documents:</label>
+//         <input type="file" name="degreeDocs" multiple onChange={(e) => setDegreeDocs(e.target.files)} required />
+//       </div>
+
+//       {/* Submit button for doctor role (can be conditionally rendered in parent if needed) */}
+//       <button type="submit" onClick={handleSubmit}>Register</button>
+//     </div>
+//   );
+// };
+
+// export default DoctorRegister;
+
+
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import './DoctorRegister.css';
@@ -849,7 +996,9 @@ const DoctorRegister = ({ setError, setSuccess }) => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/doctors/register', form, {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+
+      const res = await axios.post(`${baseUrl}/api/doctors/register`, form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccess(res.data.message);
@@ -861,11 +1010,8 @@ const DoctorRegister = ({ setError, setSuccess }) => {
     }
   };
 
-  // We return JSX fields only (no <form>)
   return (
     <div className="doctor-register-form">
-      {/* All your input fields go here... */}
-
       <input type="text" name="fullName" placeholder="Full Name" value={formData.fullName} onChange={handleChange} required />
       <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
       <input type="tel" name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
@@ -875,7 +1021,7 @@ const DoctorRegister = ({ setError, setSuccess }) => {
       <input type="number" name="consultationFee" placeholder="Consultation Fee" value={formData.consultationFee} onChange={handleChange} required />
       <textarea name="bio" placeholder="Bio" value={formData.bio} onChange={handleChange} required></textarea>
       <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
-      
+
       <div className="time-icon">
         <label htmlFor="startTime">Start Time</label>
         <input type="time" name="startTime" id="startTime" value={formData.startTime} onChange={handleChange} required />
@@ -915,7 +1061,6 @@ const DoctorRegister = ({ setError, setSuccess }) => {
         <input type="file" name="degreeDocs" multiple onChange={(e) => setDegreeDocs(e.target.files)} required />
       </div>
 
-      {/* Submit button for doctor role (can be conditionally rendered in parent if needed) */}
       <button type="submit" onClick={handleSubmit}>Register</button>
     </div>
   );
