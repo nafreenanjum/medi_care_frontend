@@ -745,16 +745,17 @@ const DoctorSeeReport = () => {
             const { appointmentDate, appointmentTime, reason, doctor, medicalHistory } = entry;
             return (
               <div className="history-card" key={entry._id || index}>
-                <p><strong>Appointment Date:</strong> {appointmentDate || "N/A"}</p>
-                <p><strong>Appointment Time:</strong> {appointmentTime || "N/A"}</p>
-                <p><strong>Doctor's Specialty:</strong> {doctor ? doctor.specialty : "N/A"}</p>
-                <p><strong>Reason:</strong> {reason || "N/A"}</p>
-                <div className="medical-history-details">
-                  <p><strong>Diagnosis:</strong> {medicalHistory?.diagnosis || "N/A"}</p>
-                  <p><strong>Prescription:</strong> {medicalHistory?.prescription || "N/A"}</p>
-                  <p><strong>Notes:</strong> {medicalHistory?.notes || "N/A"}</p>
-                </div>
-              </div>
+  <p><strong>Appointment Date:</strong> {appointmentDate || "N/A"}</p>
+  <p><strong>Appointment Time:</strong> {appointmentTime || "N/A"}</p>
+  <p><strong>Doctor's Specialty:</strong> {doctor ? doctor.specialty : "N/A"}</p>
+  <p><strong>Reason:</strong> {reason || "N/A"}</p>
+  <div className="medical-history-details">
+    <p><strong>Diagnosis:</strong> {medicalHistory?.diagnosis ?? "Not yet added"}</p>
+    <p><strong>Prescription:</strong> {medicalHistory?.prescription ?? "Not yet added"}</p>
+    <p><strong>Notes:</strong> {medicalHistory?.notes ?? "Not yet added"}</p>
+  </div>
+</div>
+
             );
           })
         ) : (
