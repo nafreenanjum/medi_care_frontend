@@ -1794,6 +1794,8 @@ const DoctorDashboard = () => {
                   <p>Email: {patientEmail}</p>
                   <p>Date: {moment(appointment.appointmentDate, moment.ISO_8601, true).isValid() ? moment(appointment.appointmentDate).format('LL') : appointment.appointmentDate}</p>
                   <p>Time: {appointment.appointmentTime}</p>
+                  <p>Reason: {appointment.reason || "N/A"}</p>
+
                   <p>Status: {appointment.status}</p>
 
                   <div className="appointment-actions">
