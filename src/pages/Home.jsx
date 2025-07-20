@@ -1006,7 +1006,7 @@ const Home = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
-        <h1>Welcome to MEDI_CARE</h1>
+        <h1>Welcome to MEDI-CARE</h1>
         <p>Your trusted health partner for better care and coverage.</p>
       </section>
 
