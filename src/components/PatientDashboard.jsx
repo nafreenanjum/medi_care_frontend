@@ -672,9 +672,7 @@ const PatientDashboard = () => {
             </>
           )}
         </div>
-        <div style={{ marginTop: "20px" }}>
-  <MedicalChat patient={patientInfo} />
-</div>
+        
 
 
         <div className="dashboard-actions">
@@ -685,6 +683,10 @@ const PatientDashboard = () => {
           <button onClick={() => navigate('/edit-profile')}>⚙️ Edit Profile</button>
         </div>
       </div>
+      <div style={{ marginTop: "20px" }}>
+  <MedicalChat patient={patientInfo} />
+</div>
+
     </>
   );
 };
