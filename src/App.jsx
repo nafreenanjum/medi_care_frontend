@@ -55,7 +55,11 @@ import UpdateMedicalReport from "./components/UpdateMedicalReport";
 import DoctorSeeReport from "./components/DoctorSeeReport";
 import PatientDashboard from "./components/PatientDashboard";
 
+console.log("Base API URL:", import.meta.env.VITE_API_BASE_URL);
+console.log("AI API URL:", import.meta.env.VITE_AI_API_BASE_URL);
+
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <Router>
       <Routes>
@@ -75,6 +79,10 @@ function App() {
                 <Route path="/doctor/:doctorId/patient/:patientId/medical-history" element={<DoctorSeeReport />} />
                 <Route path="/dashboard" element={<PatientDashboard />} />
                 <Route path="/doctor/register" element={<DoctorRegister />} />
+        
+              
+
+                
 
       </Routes>
     </Router>
