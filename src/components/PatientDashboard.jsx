@@ -571,6 +571,7 @@ const PatientDashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAppointments, setShowAppointments] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -607,39 +608,53 @@ const PatientDashboard = () => {
 
   if (loading) return <div className="dashboard-container">Loading...</div>;
 
-  return (
-    <>
-    <div className="login-header">
-  {/* LEFT: Logo */}
-  <div className="navbar-left" onClick={() => navigate('/dashboard')}>
-    <img src="/logomedicare.jpg" alt="Logo" className="logo" />
-  </div>
+  const handleNavigate = (path) => {
+  navigate(path);
+  setMenuOpen(false);
+};
 
-  {/* RIGHT: Home and Logout */}
-  <div className="navbar-right">
-    <button className="home-btn" onClick={() => navigate('/')}>Home</button>
-    <button
-      className="logout-btn"
-      onClick={() => {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      }}
-    >
-      Logout
-    </button>
-  </div>
-</div>
+return (
+  <>
+    <header className="login-header">
+      {/* LEFT: Logo */}
+      <div className="navbar-left" onClick={() => handleNavigate("/dashboard")}>
+        <img src="/logomedicare.jpg" alt="Logo" className="logo" />
+      </div>
 
+      {/* RIGHT: Hamburger Menu */}
+      <div className="navbar-right">
+        <button
+          className="hamburger"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          ☰
+        </button>
 
+        
+      </div>
+    </header>
+    {menuOpen && (
+          <div className="menu-popup">
+            <button onClick={() => handleNavigate("/")}>Home</button>
+            <button
+              onClick={() => {
+                localStorage.removeItem("token");
+                handleNavigate("/login");
+              }}
+            >
+              Logout
+            </button>
+          </div>
+        )}
+  
 
-      {/* HEADER END */}
 
       {/* ADD PADDING TOP to prevent content hidden behind fixed header */}
       <div className="dashboard-container" style={{ paddingTop: '90px' }}>
         <div className="dashboard-header">
           <div>
-            <h2>Welcome, {patientInfo?.fullName}</h2>
-            <p>{patientInfo?.email}</p>
+            <h2>Welcome</h2>
+            <h2>{patientInfo?.name}</h2>
           </div>
           
         </div>
