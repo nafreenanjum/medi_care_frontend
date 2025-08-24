@@ -941,6 +941,8 @@ const Home = () => {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [imageIndex, setImageIndex] = useState(0);
   const [activeLink, setActiveLink] = useState('');
+const [isOpen, setIsOpen] = useState(false);
+  
 
   // Auto-slide Records
   useEffect(() => {
@@ -972,37 +974,49 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Navbar */}
       <header className="header">
-        <img src="/logomedicare.jpg" alt="Logo" />
-        <nav>
-          <a
-            href="#features"
-            className={activeLink === 'features' ? 'active' : ''}
-            onClick={() => handleLinkClick('features')}
-          >
-            Features
-          </a>
-          <a
-            href="#records"
-            className={activeLink === 'records' ? 'active' : ''}
-            onClick={() => handleLinkClick('records')}
-          >
-            Records
-          </a>
-          <a
-            href="#testimonials"
-            className={activeLink === 'testimonials' ? 'active' : ''}
-            onClick={() => handleLinkClick('testimonials')}
-          >
-            Testimonials
-          </a>
-        </nav>
-        <div className="auth-buttons">
-          <button className="btn login" onClick={() => navigate('/login')}>Login</button>
-          <button className="btn register" onClick={() => navigate('/register')}>Register</button>
+      {/* Left: Logo */}
+      <div className="logo">
+        <img src="/logomedicare.jpg" alt="MediCare Logo" />
+      </div>
+
+      {/* Center: Navigation Links (Hidden on mobile) */}
+      <nav className={`nav-center ${isOpen ? "open" : ""}`}>
+        <a href="#features" onClick={() => setIsOpen(false)}>Features</a>
+        <a href="#records" onClick={() => setIsOpen(false)}>Records</a>
+        <a href="#testimonials" onClick={() => setIsOpen(false)}>Testimonials</a>
+      </nav>
+
+      {/* Right: Auth Buttons (Hidden on mobile menu closed) */}
+      <div className="auth-buttons desktop-only">
+        <button className="btn login" onClick={() => navigate("/login")}>
+          Login
+        </button>
+        <button className="btn register" onClick={() => navigate("/register")}>
+          Register
+        </button>
+      </div>
+
+      {/* Mobile Menu Button */}
+      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
+        <div className={`line ${isOpen ? "open" : ""}`}></div>
+        <div className={`line ${isOpen ? "open" : ""}`}></div>
+        <div className={`line ${isOpen ? "open" : ""}`}></div>
+      </div>
+
+      {/* Mobile Auth Buttons (Shown in dropdown) */}
+      {isOpen && (
+        <div className="auth-buttons mobile-only">
+          <button className="btn login" onClick={() => { setIsOpen(false); navigate("/login"); }}>
+            Login
+          </button>
+          <button className="btn register" onClick={() => { setIsOpen(false); navigate("/register"); }}>
+            Register
+          </button>
         </div>
-      </header>
+      )}
+    </header>
+
 
       {/* Hero Section */}
       <section className="hero-section">
