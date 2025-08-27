@@ -103,7 +103,7 @@
 
 /* ========== HAMBURGER ICON ========== */
 .hamburger {
-  display: none;
+  display: none !important;
   flex-direction: column;
   cursor: pointer;
   gap: 4px;
