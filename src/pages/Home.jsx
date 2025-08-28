@@ -996,7 +996,12 @@ const [isOpen, setIsOpen] = useState(false);
           Register
         </button>
       </div>
-
+      
+      <div className="home-hamburger" onClick={() => setIsOpen(!isOpen)}>
+    <span className={`line ${isOpen ? "open" : ""}`}></span>
+    <span className={`line ${isOpen ? "open" : ""}`}></span>
+    <span className={`line ${isOpen ? "open" : ""}`}></span>
+  </div>
   
 
       {/* Mobile Auth Buttons (Shown in dropdown) */}

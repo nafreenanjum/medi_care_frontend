@@ -142,6 +142,35 @@
 
   
 }
+.home-hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.home-hamburger .line {
+  width: 25px;
+  height: 3px;
+  background: black;
+  transition: 0.3s;
+}
+
+.home-hamburger .line.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.home-hamburger .line.open:nth-child(2) {
+  opacity: 0;
+}
+.home-hamburger .line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 768px) {
+  .home-hamburger {
+    display: flex;
+  }
+}
 
 /* ========== PAGE BACKGROUND ========== */
 .home-container {
