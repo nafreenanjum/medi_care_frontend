@@ -997,12 +997,7 @@ const [isOpen, setIsOpen] = useState(false);
         </button>
       </div>
 
-      {/* Mobile Menu Button */}
-      <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
-        <div className={`line ${isOpen ? "open" : ""}`}></div>
-        <div className={`line ${isOpen ? "open" : ""}`}></div>
-        <div className={`line ${isOpen ? "open" : ""}`}></div>
-      </div>
+  
 
       {/* Mobile Auth Buttons (Shown in dropdown) */}
       {isOpen && (

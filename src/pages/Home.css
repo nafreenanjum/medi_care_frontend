@@ -102,31 +102,7 @@
 } */
 
 /* ========== HAMBURGER ICON ========== */
-.hamburger {
-  display: none !important;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 4px;
-}
 
-.hamburger .line {
-  width: 25px;
-  height: 3px;
-  background: black;
-  transition: 0.3s;
-}
-
-.hamburger .line.open:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger .line.open:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger .line.open:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
 
 /* ========== MOBILE RESPONSIVE STYLES ========== */
 @media (max-width: 768px) {
@@ -164,9 +140,7 @@
     right: 0;
   }
 
-  .hamburger {
-    display: flex;
-  }
+  
 }
 
 /* ========== PAGE BACKGROUND ========== */
