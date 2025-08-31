@@ -64,7 +64,7 @@
 
 
 /* 📌 Chat Window */
-.chat-window {
+/* .chat-window {
   position: fixed;
   bottom: 80px;
   right: 20px;
@@ -77,7 +77,7 @@
   flex-direction: column;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-}
+} */
 
 /* 📌 Chat Header */
 .chat-header {
@@ -165,7 +165,7 @@
 }
 
 /* 📌 Input Area */
-.chat-input {
+/* .chat-input {
   border-top: 1px solid #ddd;
   background: white;
   display: flex;
@@ -182,7 +182,7 @@
   font-size: 14px;
   outline: none;
   transition: background 0.2s, box-shadow 0.2s;
-}
+} */
 .chat-input input:focus {
   background: #ffffff;
   box-shadow: 0 0 6px rgba(0,0,0,0.15);
@@ -190,14 +190,66 @@
 
 
 /* Send (➤) button */
+/* /* 📌 Chat Window */
+.chat-window {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 90%;            /* responsive width */
+  max-width: 350px;      /* limit for desktop */
+  height: 70vh;          /* relative to screen height */
+  max-height: 500px;     /* optional limit */
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* 📌 Input Area */
+.chat-input {
+  border-top: 1px solid #ddd;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  position: relative;   /* ✅ so button positions correctly */
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 25px;
+  background: #f1f1f1;
+  font-size: 14px;
+  outline: none;
+}
+
 .chat-input button {
   all: unset;
   position: absolute;
-  right: 30px;
-  bottom: 16px;
-  background: transparent !important;
-  border: none;
+  right: 20px;          /* adjusted for smaller screens */
+  top: 50%;
+  transform: translateY(-50%); /* centers vertically */
   cursor: pointer;
+}
+
+.chat-input button i {
+  font-size: 18px;
+  color: #4caf50; /* green arrow */
+}
+
+/* 📱 Mobile adjustments */
+@media (max-width: 480px) {
+  .chat-window {
+    width: 95%;
+    right: 10px;
+    bottom: 70px;
+    height: 65vh;
+  }
 }
 
 .chat-input button:disabled {
