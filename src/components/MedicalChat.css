@@ -123,6 +123,16 @@
   top: auto;                  /* ✅ prevent hiding behind header */     /* ✅ always on top of navbar */
 }
 
+
+@media (orientation: landscape) {
+  .chat-container {
+    flex-direction: row;  /* or adjust layout */
+    height: 100vh;
+    width: 100vw;
+  }
+}
+
+
 /* 📌 Chat Header with Close Button */
 .chat-header {
   flex-shrink: 0;
