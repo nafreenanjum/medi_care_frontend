@@ -80,7 +80,7 @@
 } */
 
 /* 📌 Chat Header */
-.chat-header {
+/* .chat-header {
   background: rgb(245, 241, 241);
   padding: 8px 12px;
   display: flex;
@@ -96,22 +96,73 @@
   font-weight: bold;
   text-align: center;
   flex-grow: 1;
-}
+} */
 
 /* Close (✖) button */
+/* }
+
+/* 📌 Chat Window */
+.chat-window {
+  position: fixed;
+  bottom: 0;             /* ✅ Stick fully above navbar */
+  right: 10px;
+  width: 90%;            /* responsive width */
+  max-width: 350px;      /* limit for desktop */
+  height: 75vh;          /* takes most of the screen */
+  max-height: 600px;     /* safety limit */
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 12px 12px 0 0;  /* ✅ flat bottom, rounded top */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 2000;         /* ✅ always on top of navbar */
+}
+
+/* 📌 Chat Header with Close Button */
+.chat-header {
+  background: rgb(245, 241, 241);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+}
+
 .chat-header .close-btn {
-   all: unset;   
+  all: unset;   
   background: transparent !important;
   border: none;
   color: #333;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   position: absolute;
   right: 12px;
-  top: 8px;
+  top: 50%;
+  transform: translateY(-50%); /* ✅ vertically center */
   padding: 0;
   line-height: 1;
 }
+
+/* 📱 Mobile adjustments */
+@media (max-width: 480px) {
+  .chat-window {
+    width: 95%;
+    right: 2.5%;
+    height: 70vh;   /* more space for messages */
+  }
+}
+
 
 /* 📌 Messages */
 .chat-box {
@@ -191,22 +242,7 @@
 
 /* Send (➤) button */
 /* /* 📌 Chat Window */
-.chat-window {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 90%;            /* responsive width */
-  max-width: 350px;      /* limit for desktop */
-  height: 70vh;          /* relative to screen height */
-  max-height: 500px;     /* optional limit */
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
+
 
 /* 📌 Input Area */
 .chat-input {
