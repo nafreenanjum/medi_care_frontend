@@ -119,7 +119,8 @@
   flex-direction: column;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   overflow: hidden;
-  z-index: 2000;       /* ✅ always on top of navbar */
+   z-index: 9999 !important;   /* ✅ Always above navbar */
+  top: auto;                  /* ✅ prevent hiding behind header */     /* ✅ always on top of navbar */
 }
 
 /* 📌 Chat Header with Close Button */
