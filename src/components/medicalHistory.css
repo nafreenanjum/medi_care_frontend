@@ -29,15 +29,33 @@ h2 {
 
 /* History Card Styles */
 .history-card {
-  background-color: #ffffff;           /* cleaner white background */
-  border-radius: 10px;                 /* slightly rounder corners */
-  padding: 20px;                      /* more padding for spacious feel */
-  margin: 12px 0;                    /* a bit more vertical spacing */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* softer, bigger shadow */
-  color: #000000;                    /* text color */
-  border: 2px solid #000000;         /* solid black border */
-  transition: box-shadow 0.3s ease; 
-  width:1450px; /* smooth shadow transition */
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 12px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #000000;
+  border: 2px solid #000000;
+  transition: box-shadow 0.3s ease;
+  width: 100%;          /* take full available width */
+  max-width: 600px;     /* optional: set a max limit */
+  margin-left: auto;
+  margin-right: auto;   /* center card */
+}
+
+.back-btn {
+  padding: 12px;
+  width: 100%;          /* full width in container */
+  max-width: 400px;     /* optional: limit button width */
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  display: block;       /* ensures it behaves like a block element */
+  margin: 20px auto;    /* centers button */
 }
 
 .history-card:hover {
@@ -74,17 +92,7 @@ p {
   color: #000000;
   margin-top: 8px;
 }
-.back-btn {
-  padding: 12px;
-   width:1350px!important;
-  background-color: #4caf50;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
+
 
 .back-btn:hover {
   background-color: #45a049;
